@@ -1,4 +1,4 @@
-PY=python3
+.PHONY: test-py test-go
 
-run-0-indoor-py:
-	$(PY) 0_indoor/python/main.py
+test-py:
+	@pytest
