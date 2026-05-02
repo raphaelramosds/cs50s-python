@@ -2,6 +2,6 @@
 
 ## [![CS50](https://img.shields.io/badge/CS50-red)](https://cs50.harvard.edu/python/weeks/0/#week-0-functions)  Week 0 - Functions
 
-Functions. Arguments. Side Effects. Bugs. Return Values. Variables. Comments. Pseudocode. `str`. Parameters. `int`. Operators. Interactive Mode. `float`. `def`. Scope. `return`.
+- **Keywords**: Functions. Arguments. Side Effects. Bugs. Return Values. Variables. Comments. Pseudocode. `str`. Parameters. `int`. Operators. Interactive Mode. `float`. `def`. Scope. `return`.
 
-- [Notes](week0/README.md)
+> Notes can be found on [week0/README.md](week0/README.md)
