@@ -1,6 +1,6 @@
 # Week 01 - Functions
 
-## Functions overview
+## Useful built-in functions
 
 ### Prompts the user for input
 
