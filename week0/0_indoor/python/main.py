@@ -1,5 +1,8 @@
-def main():
-    print("Hello, world!")
+from indoor import indoor
 
-if __name__ == "__main__":
+def main():
+    txt = input()
+    print(indoor(txt))
+
+if __name__ == '__main__':
     main()
