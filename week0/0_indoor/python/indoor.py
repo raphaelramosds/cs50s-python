@@ -1,2 +1,2 @@
-def indoor(palavra: str):
-    return palavra.lower()
+def indoor(txt: str):
+    return txt.lower()
