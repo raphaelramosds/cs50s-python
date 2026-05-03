@@ -5,8 +5,7 @@ import (
 	"testing"
 )
 
-var dollarError InvalidDollarStr
-var percentError InvalidPercentStr
+
 
 func TestInvalidDollarsString(t *testing.T) {
 	_, err := DollarsToFloat("$ 7.50")
@@ -15,7 +14,8 @@ func TestInvalidDollarsString(t *testing.T) {
 		t.Error()
 	}
 
-	if !errors.As(err, &dollarError) {
+	// Type assertion without errors.As
+	if _, ok := err.(InvalidDollarStr); !ok {
 		t.Error(err)
 	}
 }
@@ -27,6 +27,8 @@ func TestInvalidPercentString(t *testing.T) {
 		t.Error()
 	}
 
+	// Type assertion with errors.As
+	var percentError InvalidPercentStr
 	if !errors.As(err, &percentError) {
 		t.Error(err)
 	}
