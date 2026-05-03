@@ -1,5 +1,6 @@
 TARGETS=test-0_indoor \
-	test-1_playback
+	test-1_playback \
+	test-2_making_faces
 
 test-%:
 	@echo "($*) Running Python tests...\n"
