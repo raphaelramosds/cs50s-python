@@ -1,7 +1,7 @@
 from playback import playback
 
 def test_This_is_CS50():
-    assert playback("This is C50") == "This...is...CS50"
+    assert playback("This is CS50") == "This...is...CS50"
 
 def test_This_is_our_week_on_functions():
     assert playback("This is our week on functions") == "This...is...our...week...on...functions"

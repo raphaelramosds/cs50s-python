@@ -1,2 +1,2 @@
-def playback(txt):
-    return txt
+def playback(txt: str):
+    return txt.replace(" ", "...")
