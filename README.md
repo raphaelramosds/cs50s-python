@@ -29,6 +29,13 @@ Each problem set is implemented in **Python** and/or **Go** as a way to review P
 | `3_math_interpreter` | `re.match` with capture groups (`.group()`), `str.strip/lower/replace`, `float()`, floor division (`//`), `ZeroDivisionError`, `ValueError` | — |
 | `4_meal_time` | `str.split(":")`, `float()`, numeric range checks (`>=`/`<=`), helper function for unit conversion | — |
 
+### Week 2 — Loops
+
+| Problem | Python | Go |
+|---|---|---|
+| `0_camel_case` | Character-by-character iteration, `str.isupper()`, conditional expression, string concatenation | — |
+| `1_coke_machine` | Module-level list constant (`VALID_COINS`), `str.isnumeric()`, `dict` as mutable accumulator (pass-by-reference semantics), generator expression inside `str.join()`, `while` loop on dict value, testable wrapper (`_static` variant) separating I/O from logic | — |
+
 ---
 
 ## Python Features Overview
@@ -44,6 +51,12 @@ Each problem set is implemented in **Python** and/or **Go** as a way to review P
 - **String splitting** — `str.split(":")` to unpack structured tokens
 - **Module guard** — `if __name__ == "__main__"` entry point pattern
 - **String slicing** — `dollars[1:]` to strip a leading character
+- **`str.isupper()`** — character classification for camelCase → snake_case conversion
+- **`str.isnumeric()`** — input validation before `int()` conversion
+- **`dict` as mutable accumulator** — passed by reference so callers see mutations; used as a simple state object
+- **Generator expressions** — inline `(str(i) for i in ...)` inside `str.join()` to avoid an intermediate list
+- **`while` loop** — condition checked against a dict value each iteration
+- **Testability pattern** — `_static` function variant accepts a list instead of reading from stdin, keeping logic testable without mocking
 
 ## Go Features Overview
 
