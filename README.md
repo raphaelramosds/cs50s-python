@@ -35,6 +35,7 @@ Each problem set is implemented in **Python** and/or **Go** as a way to review P
 |---|---|---|
 | `0_camel_case` | Character-by-character iteration, `str.isupper()`, conditional expression, string concatenation | — |
 | `1_coke_machine` | Module-level list constant (`VALID_COINS`), `str.isnumeric()`, `dict` as mutable accumulator (pass-by-reference semantics), generator expression inside `str.join()`, `while` loop on dict value, testable wrapper (`_static` variant) separating I/O from logic | — |
+| `2_just_setting_up_my_twttr` | `re.sub` for pattern-based deletion, character class `[aeiouAEIOU]` in regex | — |
 
 ---
 
@@ -56,10 +57,11 @@ Each problem set is implemented in **Python** and/or **Go** as a way to review P
   ```python
   f"Leave ${tip:.2f}"
   ```
-- **Regular expressions** — `re.fullmatch` for strict matching, `re.match` with capture groups:
+- **Regular expressions** — `re.fullmatch` for strict matching, `re.match` with capture groups, `re.sub` for pattern-based replacement:
   ```python
   re.fullmatch(r"\$\d{1,3}(\.\d{1,2})?", dollars)
   exp_operands.group(1)
+  re.sub(r'[aeiouAEIOU]', '', input)  # delete all vowels
   ```
 - **Floor division** — `//` operator for integer-valued results:
   ```python
