@@ -40,34 +40,136 @@ Each problem set is implemented in **Python** and/or **Go** as a way to review P
 
 ## Python Features Overview
 
-- **Type hints** — parameter and return annotations on all functions
-- **String methods** — `.lower()`, `.replace()`, `.strip()`, chained calls
-- **Numeric literals** — underscores for readability (`90_000_000_000_000_000`)
-- **f-strings** — with format specifiers (e.g. `:.2f`)
-- **Regular expressions** — `re.fullmatch` for strict matching, `re.match` with capture groups (`.group()`)
-- **Floor division** — `//` operator for integer-valued results
-- **Built-in exceptions** — raising `ZeroDivisionError` directly; custom exceptions via `ValueError` with messages
-- **Custom exceptions** — subclassing `ValueError`, calling `super().__init__`
-- **String splitting** — `str.split(":")` to unpack structured tokens
-- **Module guard** — `if __name__ == "__main__"` entry point pattern
-- **String slicing** — `dollars[1:]` to strip a leading character
-- **`str.isupper()`** — character classification for camelCase → snake_case conversion
-- **`str.isnumeric()`** — input validation before `int()` conversion
-- **`dict` as mutable accumulator** — passed by reference so callers see mutations; used as a simple state object
-- **Generator expressions** — inline `(str(i) for i in ...)` inside `str.join()` to avoid an intermediate list
-- **`while` loop** — condition checked against a dict value each iteration
-- **Testability pattern** — `_static` function variant accepts a list instead of reading from stdin, keeping logic testable without mocking
+- **Type hints** — parameter and return annotations on all functions:
+  ```python
+  def indoor(txt: str) -> str:
+  ```
+- **String methods** — `.lower()`, `.replace()`, `.strip()`, chained:
+  ```python
+  exp.strip().lower().replace(' ', '')
+  ```
+- **Numeric literals** — underscores for readability:
+  ```python
+  C2 = 90_000_000_000_000_000
+  ```
+- **f-strings** — with format specifiers:
+  ```python
+  f"Leave ${tip:.2f}"
+  ```
+- **Regular expressions** — `re.fullmatch` for strict matching, `re.match` with capture groups:
+  ```python
+  re.fullmatch(r"\$\d{1,3}(\.\d{1,2})?", dollars)
+  exp_operands.group(1)
+  ```
+- **Floor division** — `//` operator for integer-valued results:
+  ```python
+  return x // y
+  ```
+- **Built-in exceptions** — raising directly with a message:
+  ```python
+  raise ZeroDivisionError()
+  ```
+- **Custom exceptions** — subclassing `ValueError`, calling `super().__init__`:
+  ```python
+  class InvalidDollarStr(ValueError):
+      def __init__(self, txt: str):
+          super().__init__(f"dollar: {txt} should be formatted as $##.##")
+  ```
+- **String splitting** — to unpack structured tokens:
+  ```python
+  hh, mm = time_str.strip().split(":")
+  ```
+- **Module guard** — entry point pattern:
+  ```python
+  if __name__ == "__main__":
+  ```
+- **String slicing** — strip a leading character:
+  ```python
+  float(dollars[1:])
+  ```
+- **`str.isupper()`** — character classification for camelCase → snake_case:
+  ```python
+  c = '_' + char.lower() if char.isupper() else char
+  ```
+- **`str.isnumeric()`** — input validation before `int()` conversion:
+  ```python
+  if not coin.isnumeric():
+      return False
+  ```
+- **`dict` as mutable accumulator** — mutations inside a function are visible to the caller:
+  ```python
+  invoice["total_inserted"] = invoice["total_inserted"] + coin
+  ```
+- **Generator expressions** — inline inside `str.join()` to avoid an intermediate list:
+  ```python
+  ", ".join(str(i) for i in VALID_COINS)
+  ```
+- **`while` loop** — condition checked against a dict value each iteration:
+  ```python
+  while invoice["total_inserted"] < COKE_PRICE:
+  ```
+- **Testability pattern** — `_static` variant accepts a list instead of reading from stdin:
+  ```python
+  def coke_machine_static(inputs: list) -> dict:  # testable
+  def coke_machine() -> None:                     # interactive
+  ```
 
 ## Go Features Overview
 
-- **Package organization** — each problem in its own package with exported functions
-- **Multiple return values** — `(T, error)` pattern for fallible operations
-- **Custom error types** — named types implementing the `error` interface via `Error() string`
-- **`strings` package** — `ToLower`, `HasPrefix`, `TrimSpace`, `Replace`, `ReplaceAll`
-- **`regexp` package** — `MustCompile`, `MatchString`, `FindStringSubmatch` with capture groups
-- **`strconv` package** — `ParseFloat`, `Itoa`, `FormatFloat` for string↔numeric conversion
-- **`const`** — typed and untyped constant declarations
-- **Explicit numeric types** — `uint`, `uint64`, `float32`, `float64` with explicit casts
-- **`switch`/`case`** — multi-branch dispatch with a `default` fallback
-- **Byte indexing** — `s[0]` to inspect the first byte of a string
+- **Package organization** — each problem in its own package with exported (capitalized) functions:
+  ```go
+  package tip
+  func DollarsToFloat(dollars string) (float32, error)
+  ```
+- **Multiple return values** — `(T, error)` pattern for fallible operations:
+  ```go
+  func DollarsToFloat(dollars string) (float32, error) { ... }
+  dollarsFloat, err := DollarsToFloat(dollars)
+  ```
+- **Custom error types** — named types implementing the `error` interface via `Error() string`:
+  ```go
+  type InvalidDollarStr string
+  func (txt InvalidDollarStr) Error() string {
+      return fmt.Sprintf("dollar: %s should be formatted as $##.##", string(txt))
+  }
+  ```
+- **`strings` package** — `ToLower`, `HasPrefix`, `TrimSpace`, `ReplaceAll`:
+  ```go
+  strings.ToLower(greeting)
+  strings.HasPrefix(greeting, "hello")
+  strings.ReplaceAll(dollars, "$", "")
+  ```
+- **`regexp` package** — `MustCompile`, `MatchString`, `FindStringSubmatch` with capture groups:
+  ```go
+  re := regexp.MustCompile(`.*\.(\w+)$`)
+  match := re.FindStringSubmatch(filename)  // match[1] = captured extension
+  ```
+- **`strconv` package** — `ParseFloat`, `Itoa`, `FormatFloat` for string↔numeric conversion:
+  ```go
+  strconv.ParseFloat(dollarsStrParsed, 32)
+  strconv.Itoa(amount)
+  strconv.FormatFloat(float64(tip), 'f', 2, 32)
+  ```
+- **`const`** — typed and untyped constant declarations:
+  ```go
+  const C2 = 90000000000000000
+  ```
+- **Explicit numeric types** — `uint`, `uint64`, `float32`, `float64` with explicit casts:
+  ```go
+  func Einstein(mass uint) uint64 {
+      return uint64(mass) * C2
+  }
+  ```
+- **`switch`/`case`** — multi-branch dispatch with a `default` fallback:
+  ```go
+  switch match[1] {
+  case "jpg", "jpeg": return "image/jpeg"
+  case "png":         return "image/png"
+  default:            return "application/octet-stream"
+  }
+  ```
+- **Byte indexing** — `s[0]` to inspect the first byte of a string:
+  ```go
+  greeting[0] == 'h'
+  ```
 - **Testing** — table-driven style using `*testing.T` and `t.Errorf`
