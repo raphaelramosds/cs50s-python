@@ -49,6 +49,7 @@ def coke_machine() -> None:
         if not process(coin):
             continue
 
+    print("-" * 10)
     print("Total inserted: {}".format(amount))
     print("Coke price: {}".format(COKE_PRICE))
     print("Change Owed: {}".format(change))
