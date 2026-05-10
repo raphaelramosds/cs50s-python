@@ -36,6 +36,8 @@ Each problem set is implemented in **Python** and/or **Go** as a way to review P
 | `0_camel_case` | Character-by-character iteration, `str.isupper()`, conditional expression, string concatenation | — |
 | `1_coke_machine` | Module-level list constant (`VALID_COINS`), `str.isnumeric()`, `dict` as mutable accumulator (pass-by-reference semantics), generator expression inside `str.join()`, `while` loop on dict value, testable wrapper (`_static` variant) separating I/O from logic | — |
 | `2_just_setting_up_my_twttr` | `re.sub` for pattern-based deletion, character class `[aeiouAEIOU]` in regex | — |
+| `3_vanity_plates` | `len()` for length bounds checks, `re.fullmatch` with quantifiers (`{2,}`, `+`) and negated character class `[^\s0]` | — |
+| `4_nutrition` | Module-level `dict` constant, `dict.get()` for safe key lookup (returns `None` on miss), `str.lower()` for case-insensitive matching | — |
 
 ---
 
@@ -114,6 +116,18 @@ Each problem set is implemented in **Python** and/or **Go** as a way to review P
   ```python
   def coke_machine_static(inputs: list) -> dict:  # testable
   def coke_machine() -> None:                     # interactive
+  ```
+- **`len()`** — string length bounds check:
+  ```python
+  if len(s) > 6 or len(s) < 2:
+  ```
+- **Regex quantifiers** — `{n,}` for "at least n", `+` for "one or more", negated class `[^...]`:
+  ```python
+  re.fullmatch(r'^[A-Z]{2,}[^\s0]\d+$', s)
+  ```
+- **`dict.get()`** — safe key lookup returning `None` when the key is absent:
+  ```python
+  FRUITS_CAL.get(item)  # None if item not in dict
   ```
 
 ## Go Features Overview
